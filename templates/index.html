@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <!-- MDUI CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css"/>
+    <title>文件上传系统</title>
+    <style>
+      input {
+        padding: 5px 0;
+      }
+      .upload_form{
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mdui-container mdui-theme-primary-pink">
+      <div class="mdui-typo mdui-text-color-blue mdui-text-center">
+        <h1>文件上传系统</h1>
+      </div>
+      <form class="upload_form" method="POST" action="/upload" enctype="multipart/form-data">
+          <input class="mdui-btn-block" type="file" name="file">
+          <input class="mdui-btn mdui-btn-block mdui-color-theme mdui-ripple" type="submit" value="上传">
+      </form>
+      <div class="mdui-divider"></div>
+      <div class="mdui-typo mdui-text-color-blue">
+        <h3>最近上传的文件</h1>
+      </div>
+      <ul class="mdui-list">
+        <li class="mdui-list-item">
+          <div class="mdui-list-item-content">
+            <div class="mdui-row">
+              <div class="mdui-col-xs-3">文件名</div>
+              <div class="mdui-col-xs-3">大小</div>
+              <div class="mdui-col-xs-3">上传时间</div>
+              <div class="mdui-col-xs-3">功能</div>
+            </div>
+          </div>
+        </li>
+        {% for file in files %}
+        <li class="mdui-list-item">
+          <div class="mdui-list-item-content">
+            <div class="mdui-row">
+              <div class="mdui-col-xs-3">{{ file['name'] }}</div>
+              <div class="mdui-col-xs-3">{{ file['size'] }}</div>
+              <div class="mdui-col-xs-3">{{ file['date'] }}</div>
+              <div class="mdui-col-xs-3">
+                <a class="mdui-btn mdui-color-theme mdui-ripple" href="/download/{{ file['name'] }}">下载</a>
+              </div>
+            </div>
+          </div>
+        </li>      
+        {% endfor %}
+      </ul>
+    </div>
+    <!-- MDUI JavaScript -->
+    <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+  </body>
+</html>
